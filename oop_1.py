@@ -20,9 +20,7 @@ class Car:
         self.brand = brand
         self.model = model
         self.is_power = False
-        self.is_off = True
-        self.is_stopped = False
-        self.is_move = False
+        self.is_stopped = True
 
     # метод возвращающий информацию о машине
     def get_car_info(self):
@@ -34,54 +32,53 @@ class Car:
     # метод объекта
     def start(self):
         car = self.get_car_info()
-        if self.is_power:
-            print(f"{car} уже заведена!")
-        else:
-            self.is_power = True
+        if self.is_power :
+            print(f"{car} уже заведена")
+        else :
+            self.is_power= True
             print(f"{car} завелась")
 
-    def go(self):
+    def turn(self, direction):
         car = self.get_car_info()
-        if not self.is_power:
-            print(f"{car} Машину нужно завести!")
+        valid_direction = ("налево","направо")
+        if direction.lower() in valid_direction:
+            print(f"{car} повернула {direction}")
         else:
-            print(f"{car} Машина едет прямо!")
-            self.is_off = False
+            print(f"Направление может быть одним из следующих:{valid_direction}")
 
     def power_off(self):
         car = self.get_car_info()
         if not self.is_power:
-            print(f"{car} уже заглушена!")
+            print(f"{car} уже заглушена")
         else:
             if self.is_stopped:
                 print(f"{car} заглушена")
-                self.is_power = False
+                self.is_power=False
             else:
-                print(f"Необходимо остановить машину {car}")
+                print(f"Необходимо остановить машину{car} ")
 
 
+    def go(self):
+        car = self.get_car_info()
+        if not self.is_power:
+            print(f"необходимо завести машину {car}")
+        else:
+            print(f"{car} поехала прямо")
+            self.is_stopped=False
+
+    def __str__(self):
+        return f"{self.brand}  {self.model}"
 
     def stop(self):
         car = self.get_car_info()
         if self.is_power:
             if self.is_stopped:
-                print(f"{car} уже остановлена!")
-            else:
-                print(f"{car} остановилась")
+                print(f"{car} уже остановлена")
+            else :
                 self.is_stopped = True
+                print(f"{car} остановилась")
         else:
-            print(f"Необходимо завести машину {car}")
-
-
-
-
-    def turn(self, direction):
-        car = self.get_car_info()
-        valid_directions = ("налево", "направо")
-        if direction.lower() in valid_directions:
-            print(f"{car} повернула {direction}")
-        else:
-            print(f"Направление может быть только: {valid_directions}")
+            print(f"необходимо завести машину {car}")
 
 
     def __str__(self):
